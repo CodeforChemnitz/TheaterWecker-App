@@ -5,26 +5,27 @@ import Header from '../components/header'
 import push from '../lib/push'
 import api from '../lib/api'
 import styles from '../styles'
+import { doAppInit } from '../store/actions'
 
 // AsyncStorage: https://facebook.github.io/react-native/docs/asyncstorage.html
 // ActivityIndicator: https://facebook.github.io/react-native/docs/activityindicator.html
 
 export default class InitScene extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      progressText: 'Gleich gehts los..',
-      skipButton: false,
-      spinner: true
-    }
-  }
-  showProgress = true
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     progressText: 'Gleich gehts los..',
+  //     skipButton: false,
+  //     spinner: true
+  //   }
+  // }
+  // showProgress = true
 
   initPush(routingStatus) {
     // first init OneSignal
     return new Promise((resolve, reject) => {
       console.log("initPush")
-      if (this.showProgress) this.setState({progressText: 'Initialisiere Push Dienst..'})
+      if (this.showProgress) this.props.setProgressText('Initialisiere Push Dienst..')
       return push.init(resolve, reject, routingStatus)
     })
   }
@@ -33,7 +34,7 @@ export default class InitScene extends Component {
     // console.log("registerDevice")
     return new Promise((resolve, reject) => {
       console.log("registerDevice")
-      if (this.showProgress) this.setState({progressText: 'Registriere Gerät..'})
+      if (this.showProgress) this.props.setProgressText('Registriere Gerät..')
       return api.registerDevice(resolve, reject)
     })
   }
@@ -42,7 +43,7 @@ export default class InitScene extends Component {
     // console.log("getCategories")
     return new Promise((resolve, reject) => {
       console.log("getCategories")
-      if (this.showProgress) this.setState({progressText: 'Hole Kategorien..'})
+      if (this.showProgress) this.props.setProgressText('Hole Kategorien..')
       return api.getCategories(resolve, reject)
     })
   }
@@ -50,7 +51,7 @@ export default class InitScene extends Component {
   getSubscriptions() {
     return new Promise((resolve, reject) => {
       console.log("getSubscriptions")
-      if (this.showProgress) this.setState({progressText: 'Hole Subscriptions..'})
+      if (this.showProgress) this.props.setProgressText('Hole Subscriptions..')
       return api.getSubscriptions(resolve, reject)
     })
   }
@@ -58,7 +59,7 @@ export default class InitScene extends Component {
   saveCategories(categories, showText) {
     // return new Promise((resolve, reject) => {
       console.log("AsyncStorage.setItem", categories)
-      if (this.showProgress) this.setState({progressText: 'Cache Kategorien..'})
+      if (this.showProgress) this.props.setProgressText('Cache Kategorien..')
       return AsyncStorage.setItem('@TW:categories', JSON.stringify(categories)) //, reject)
     // })
   }
@@ -66,18 +67,21 @@ export default class InitScene extends Component {
   saveSubscriptions(subscriptions) {
     // return new Promise((resolve, reject) => {
       console.log("AsyncStorage.setItem", subscriptions)
-      if (this.showProgress) this.setState({progressText: 'Cache Subscriptions..'})
+      if (this.showProgress) this.props.setProgressText('Cache Subscriptions..')
       return AsyncStorage.setItem('@TW:subscriptions', JSON.stringify(subscriptions)) //, reject)
     // })
   }
 
+
   componentDidMount() {
+    this.props.initStarted()
     let routingStatus = {
       routeChanged: false, 
       canRouteToMain: false, 
       disableProgress: () => {
         this.showProgress = false
       }}
+
     this.initPush(routingStatus) // Promise
       .then(() => { 
         console.log("%c registerDevice geht los", "color: blue")
@@ -143,12 +147,45 @@ export default class InitScene extends Component {
           </View>
           <View style={{flex: 5}}>
               <View style={styles.initContainer}>
-                <Text style={{margin: 20}}>{this.state.progressText}</Text>
-                {this.state.skipButton ? <Button title="Überspringen" onPress={Actions.main} /> : null}
-                {this.state.spinner ? <ActivityIndicator size="large" /> : null }
+                <Text style={{margin: 20}}>{this.props.progressText}</Text>
+                {this.props.skipButton ? <Button title="Überspringen" onPress={Actions.main} /> : null}
+                {this.props.spinner ? <ActivityIndicator size="large" /> : null }
               </View>
           </View>
         </View>
+    )
+  }
+}
+
+
+const mapStateToProps = state => {
+  return {
+    initialized: state.init.initialized,
+    progressText: state.init.progressText,
+
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // doAppInit: () => dispatch(doAppInit())
+    doRegisterDevice: () => dispatch(doRegisterDevice())
+  }
+}
+
+const AppReduxed = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
+
+export default class extends Component {
+  render() {
+    const store = configureStore()
+    return (
+      <Provider store={store}>
+        <AppReduxed/>
+      </Provider>
     )
   }
 }

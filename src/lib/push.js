@@ -14,52 +14,51 @@ import api from '../lib/api'
 //    "app_id":"?","include_player_ids":["?"]
 // curl -X POST --header "Authorization: key=?" --header "Content-Type:application/json" -d "{\"app_id\":\"1c52ee9f-71ed-4081-9c54-e66a815538ac\",\"include_player_ids\":[\"c732c64a-9409-4af3-b0dc-1ff93e084b5b\"],\"contents\":{\"en\":\"Test for REST content\",\"de\":\"Test per REST Inhalt\"},\"headings\":{\"en\":\"Title test\",\"de\":\"Titel Test\"},\"data\":{\"bla\":\"fasel\"}}" https://onesignal.com/api/v1/notifications 
 
-let push = {
-  deviceId: '',
-  init(success, error, routingStatus) {
-    OneSignal.configure({
-      onIdsAvailable: (device) => {
-        this.deviceId = device.userId
-        console.log('UserId = ', device.userId)
-        console.log('PushToken = ', device.pushToken)
-        success()
-      },
-      onNotificationOpened: async (message, data, isActive) => {
-        try {
-          if (Object.hasOwnProperty.call(message.notification.payload.additionalData, 'verification')) {
-            let verification = message.notification.payload.additionalData.verification
-            try {
-              await new Promise((resolve, reject) =>  {
-                api.verifyDevice(verification, resolve, reject)
-              })
-              if (routingStatus.canRouteToMain) {
-                Actions.main()
-                routingStatus.routeChanged = true
-                routingStatus.disableProgress()
-              }
+export default class {
 
-            } catch(e) {
-              // Promise rejected?! Show error
-              throw 'VerifyDevice schlug fehl'
-            }
-          } else if (Object.hasOwnProperty.call(message.notification.payload.additionalData, 'performance')) {
-            Actions.eventNotification({
-              performance: message.notification.payload.additionalData.performance,
-              back: true
-            })
+  deviceId = ''
+
+  static onIdsAvailable(device) {
+    this.deviceId = device.userId
+    console.log('UserId = ', device.userId)
+    console.log('PushToken = ', device.pushToken)
+    success()
+  }
+
+  static async onNotificationOpened(message, data, isActive) {
+    try {
+      if (Object.hasOwnProperty.call(message.notification.payload.additionalData, 'verification')) {
+        let verification = message.notification.payload.additionalData.verification
+        try {
+          await new Promise((resolve, reject) =>  {
+            api.verifyDevice(verification, resolve, reject)
+          })
+          if (routingStatus.canRouteToMain) {
+            Actions.main()
             routingStatus.routeChanged = true
             routingStatus.disableProgress()
           }
+
         } catch(e) {
-          console.debug(e)
-          Actions.error({ back: true })
+          // Promise rejected?! Show error
+          throw 'VerifyDevice schlug fehl'
         }
+      } else if (Object.hasOwnProperty.call(message.notification.payload.additionalData, 'performance')) {
+        Actions.eventNotification({
+          performance: message.notification.payload.additionalData.performance,
+          back: true
+        })
+        routingStatus.routeChanged = true
+        routingStatus.disableProgress()
       }
-    });
-  },
-  getDeviceId() {
+    } catch(e) {
+      console.debug(e)
+      Actions.error({ back: true })
+    }
+  }
+
+  static getDeviceId() {
+    // TODO wie auf Redux zugreifen?
     return this.deviceId
   }
 };
-
-export default push
