@@ -64,6 +64,9 @@ To run your app on Android:
 
 ### Android 
 
+-> **[Play-Store](https://play.google.com/store/apps/details?id=de.codeforchemnitz.theaterwecker)** 
+
+
 **Bump version**
 in `android/app/build.gradle`
 ```
@@ -111,6 +114,7 @@ check for the correct `versionControl`:
 
 
 ### iOS 
+
 
 - Bundle Identifier: `de.okfn.chemnitz.TheaterWecker`
 - Version: 1.0
