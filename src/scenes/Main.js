@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { ScrollView, View, Text, Image } from 'react-native';
 import styles from '../styles'
 // import ParsedText from 'react-native-parsed-text'
-import Form from '../components/form'
-import Footer from '../components/footer'
-import Header from '../components/header'
+import Form from '../components/Form'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
 import api from '../lib/api'
 
 // Parsed Text: https://github.com/taskrabbit/react-native-parsed-text
 
 
-export default class MainScene extends Component {
+export default class Main extends Component {
   constructor(props) {
     super(props)
   }

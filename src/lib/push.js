@@ -16,14 +16,14 @@ import api from '../lib/api'
 
 export default class {
 
-  deviceId = ''
+  // deviceId = ''
 
-  static onIdsAvailable(device) {
-    this.deviceId = device.userId
-    console.log('UserId = ', device.userId)
-    console.log('PushToken = ', device.pushToken)
-    success()
-  }
+  // static onIdsAvailable(device) {
+  //   this.deviceId = device.userId
+  //   console.log('UserId = ', device.userId)
+  //   console.log('PushToken = ', device.pushToken)
+  //   success()
+  // }
 
   static async onNotificationOpened(message, data, isActive) {
     try {

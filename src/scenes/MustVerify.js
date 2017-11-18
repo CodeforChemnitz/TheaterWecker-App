@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, Image, Button } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { ScrollView, View, Text, Image } from 'react-native';
 import styles from '../styles'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 
-// Parsed Text: https://github.com/taskrabbit/react-native-parsed-text
-
-export default class SuccessScene extends Component {
+export default class MustVerify extends Component {
   constructor(props) {
     super(props)
   }
@@ -20,11 +17,9 @@ export default class SuccessScene extends Component {
 
             <View style={styles.card}>
                 <View style={[styles.p, styles.baseText]}>
-                    <Text style={styles.center}>
-                        { 'text' in this.props ? this.props.text : 'Alles super.' }
-                    </Text>
+                    <Text style={styles.center}>Dein Gerät wurde registriert.</Text>
+                    <Text style={styles.center}>Bitte warte auf die Push-Benachrichtigung zur Bestätigung.</Text>
                 </View>
-                <Button title="Zurück" onPress={() => Actions.main({type: ActionConst.BACK})} />
             </View>
 
             <Footer/>

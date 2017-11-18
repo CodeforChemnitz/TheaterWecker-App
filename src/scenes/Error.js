@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { ScrollView, View, Text, Image, Button } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import styles from '../styles'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 
-export default class ErrorScene extends Component {
+export default class Error extends Component {
   constructor(props) {
     super(props)
   }

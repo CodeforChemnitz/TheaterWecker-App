@@ -19,18 +19,16 @@ const api = {
    * @param {*} error
    * @return Promise
    */
-  getCategories(success, error) {
+  getCategories() {
     // console.log("getCategories func call")
-    return new Promise((successInner, rejectInner) => {
-        return getJson('categories', successInner)
-      })
+    return getJson('categories')
       .then((cat) => {
         // console.log("getCategories then", cat)
         if (cat !== false) {
           // console.log("getCategories success", cat)
-          success(cat)
+          return Promise.resolve(cat)
         } else {
-          error("keine Kategorien gefunden")
+          return Promise.reject("keine Kategorien gefunden")
         }
       })
   },
@@ -47,28 +45,20 @@ const api = {
    * @param {*} success 
    * @param {*} error 
    */
-  registerDevice(success, error) {
-    const uuid = push.getDeviceId();
+  checkDevice(uuid) {
     return post('device', uuid) // Promise
       .then((response) => { 
         console.log("registerDevice response:", response)
         if (!response) {
-          error('registerDevice fehlgeschlagen')
+          return Promise.reject('registerDevice fehlgeschlagen')
         }
-        if (response.status == 200) {
+        if (response.status === 200) {
           return response.json() // Promise
-        } else if (response.status == 201) {
-          success(false)  // fulfil, Gerät neu
+        } else if (response.status === 201) {
+          return Promise.resolve(false)  // fulfil, Gerät neu
         } else {
-          error('registerDevice fehlgeschlagen')
+          return Promise.reject('registerDevice fehlgeschlagen')
         }
-      })
-      .then((json) => { 
-        console.log("registerDevice JSON:", json.verified)
-        success(json.verified)
-      })
-      .catch(() => { 
-        return false  // error(false)?
       })
   },
 
@@ -78,19 +68,17 @@ const api = {
    * Status 200: alles okay
    * Status 400: alles kaputt
    * 
-   * @param {*} key 
-   * @param {*} success 
-   * @param {*} error 
+   * @param {*} key
    * @return Promise
    */
-  verifyDevice(key, success, error) {
+  verifyDevice(key) {
     return get('verify/' + key)
       .then((response) => {
         console.log("verifyDevice response", response)
         if (response.status == 200) {
-          success(true)
+          return Promise.resolve(true)
         } else {
-          error('verifyDevice fehlgeschlagen')
+          return Promise.reject('verifyDevice fehlgeschlagen')
         }
       })
   },
@@ -103,11 +91,11 @@ const api = {
    * Status 412: Device nicht verifiziert
    * Status 500: Speichern fehlgeschlagen
    * 
-   * @param {*} categories 
+   * @param {*} uuid
+   * @param {*} categories
    * @return Promise
    */
-  subscribe(categories, success, error) {
-    const uuid = push.getDeviceId();
+  subscribe(uuid, categories) {
     return post('subscribe', JSON.stringify({
           deviceId: uuid,
           categories
@@ -115,9 +103,9 @@ const api = {
       .then((response) => {
         console.log("subscribe response", response)
         if (response.status === 201) {
-          success(true)
+          return Promise.resolve(true)
         } else {
-          error('subscribe fehlgeschlagen')
+          return Promise.reject('subscribe fehlgeschlagen')
         }
       })
   },
@@ -125,18 +113,11 @@ const api = {
   /**
    * Abonnierte Kategorien holen
    * 
-   * @param {*} success 
-   * @param {*} error 
+   * @param {*} uuid
    * @return Promise
    */
-  getSubscriptions(success, error) {
-    const uuid = push.getDeviceId();
-    return new Promise((successInner, rejectInner) => {
-        return getJson('subscriptions/' + uuid, successInner)
-      })
-      .then((json) => {
-        success(json)
-      })
+  getSubscriptions(uuid) {
+    return getJson('subscriptions/' + uuid)
   }
 }
 
@@ -146,11 +127,11 @@ function get(route) {
   return fetch(url + '/' + route)
 }
 
-function getJson(route, success) {
+function getJson(route) {
   return get(route)
     .then((response) => { 
       console.log("getJson",route,"response",response)
-      success(response.json())
+      return response.json()
     })
 }
 

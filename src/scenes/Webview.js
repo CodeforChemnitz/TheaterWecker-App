@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform, WebView } from 'react-native'
 
 // WebView: https://facebook.github.io/react-native/docs/webview.html
 
-export default class WebviewScene extends Component {
+export default class Webview extends Component {
     constructor(props) {
         super(props);
     }

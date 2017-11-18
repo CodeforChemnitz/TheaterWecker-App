@@ -4,11 +4,11 @@ import { Actions } from 'react-native-router-flux';
 import ParsedText from 'react-native-parsed-text'
 import moment from 'moment'
 import styles from '../styles'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 
 // Parsed Text: https://github.com/taskrabbit/react-native-parsed-text
 
-export default class EventNotificationScene extends Component {
+export default class EventNotification extends Component {
   constructor(props) {
     super(props)
   }

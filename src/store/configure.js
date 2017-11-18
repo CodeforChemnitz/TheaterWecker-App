@@ -8,10 +8,23 @@ import devTools from 'remote-redux-devtools'
 export default function configureStore() {
   const initialState = {
     initialized: false,
-    init: null,
+    init: {
+      error: false,
+      progressText: '',
+      registeringDevice: false,
+      categoriesLoading: false,
+      subscriptionsLoading: false,
+    },
+    push: {},
+    device: {
+
+    },
+    categories: [],
+    subscriptions: [],
   }
   const enhancer = compose(
     applyMiddleware(thunk),
+    // is disabled on production -> https://github.com/zalmoxisus/remote-redux-devtools#enabling
     devTools({
       name: Platform.OS,
       hostname: 'localhost',
