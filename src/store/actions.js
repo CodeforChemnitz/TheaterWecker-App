@@ -1,4 +1,3 @@
-import push from '../lib/push'
 import api from '../lib/api'
 import { Actions } from 'react-native-router-flux';
 

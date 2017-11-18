@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Platform } from 'react-native'
-import push from './push'
 import settings from '../settings'
 
 // Network fetch: https://facebook.github.io/react-native/releases/next/docs/network.html
