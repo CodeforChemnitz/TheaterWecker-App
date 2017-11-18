@@ -1,9 +1,17 @@
+import push from '../lib/push'
+import api from '../lib/api'
+import { Actions } from 'react-native-router-flux';
+
+
 export const APP_INIT_STARTED = 'Init/APP_INIT_STARTED'
 export const APP_INIT_FINISHED = 'Init/APP_INIT_FINISHED'
 export const SET_APP_INIT_ERROR = 'Init/SET_APP_INIT_ERROR'
 // export const SET_APP_INIT_PROGRESS_TEXT = 'Init/SET_APP_INIT_PROGRESS_TEXT'
 export const SET_INITIALIZED = 'Init/SET_INITIALIZED'
 export const SET_UNINITIALIZED = 'Init/SET_UNINITIALIZED'
+
+export const PUSH_INIT_STARTED = 'Init/PUSH_INIT_STARTED'
+export const PUSH_INIT_FINISHED = 'Init/PUSH_INIT_FINISHED'
 
 export const SET_DEVICE_ID = 'Push/SET_DEVICE_ID'
 export const SET_DEVICE_REGISTERED = 'Push/SET_DEVICE_REGISTERED'
@@ -23,13 +31,20 @@ export const GET_SUBSCRIPTIONS_STARTED = 'Init/GET_SUBSCRIPTIONS_STARTED'
 export const GET_SUBSCRIPTIONS_FINISHED = 'Init/GET_SUBSCRIPTIONS_FINISHED'
 export const SET_SUBSCRIPTIONS = 'Init/SET_SUBSCRIPTIONS'
 
-
-import push from '../lib/push'
-import api from '../lib/api'
-
 /*
  * AJAX Seiteneffekte via redux-thunk -> https://github.com/gaearon/redux-thunk
  */
+
+export function startPushInit() {
+  return {
+    type: PUSH_INIT_STARTED,
+  }
+}
+function finishPushInit() {
+  return {
+    type: PUSH_INIT_FINISHED,
+  }
+}
 
 export function notificationReceived(notification) {
   return {
@@ -48,6 +63,7 @@ export function notificationOpened(notification) {
 export function doSetDevice(device) {
   return function(dispatch) {
     dispatch(setDeviceId(device))
+    dispatch(finishPushInit())
     dispatch(doRegisterDevice(device.userId))
   }
 }
@@ -58,7 +74,6 @@ export function setDeviceId(device) {
     device
   }
 }
-
 
 export function setDeviceRegistered(notifData) {
   return {
@@ -72,7 +87,7 @@ function startAppInit() {
     type: APP_INIT_STARTED,
   }
 }
-function stopAppInit() {
+function finishAppInit() {
   return {
     type: APP_INIT_FINISHED,
   }
@@ -121,16 +136,23 @@ export function doRegisterDevice() {
         if (responseJsonOrFalse === false) {
           // Gerät neu registriert
           dispatch(setDeviceVerified(false))
+          // zur "Hey bitte Gerät bestätigen" Hinweisseite
+          Actions.mustVerify()
         } else {
+          // Gerät wurde bereits registriert
           dispatch(setDeviceVerified(responseJsonOrFalse.verified))
+          if (responseJsonOrFalse.verified === false) {
+            // zur "Hey bitte Gerät bestätigen" Hinweisseite
+            Actions.mustVerify()
+          }
         }
-        dispatch(stopRegisterDevice())
+        dispatch(finishRegisterDevice())
         dispatch(doGetCategories())
         return Promise.resolve()
       },
       error => {
         console.log(error)
-        dispatch(stopRegisterDevice())
+        dispatch(finishRegisterDevice())
         dispatch(setAppInitError(err))
       }
     )
@@ -142,7 +164,7 @@ function startRegisterDevice() {
     type: REGISTER_DEVICE_STARTED
   }
 }
-function stopRegisterDevice() {
+function finishRegisterDevice() {
   return {
     type: REGISTER_DEVICE_FINISHED
   }
@@ -167,13 +189,13 @@ export function doGetCategories() {
     return api.getCategories().then(
       responseJson => {
         dispatch(setCategories(responseJson))
-        dispatch(stopGetCategories())
+        dispatch(finishGetCategories())
         dispatch(doGetSubscriptions())
         return Promise.resolve()
       },
       error => {
         console.log(error)
-        dispatch(stopGetCategories())
+        dispatch(finishGetCategories())
         dispatch(setAppInitError(err))
       }
     )
@@ -185,7 +207,7 @@ function startGetCategories() {
     type: GET_CATEGORIES_STARTED
   }
 }
-function stopGetCategories() {
+function finishGetCategories() {
   return {
     type: GET_CATEGORIES_FINISHED
   }
@@ -210,14 +232,18 @@ export function doGetSubscriptions() {
     return api.getSubscriptions(state.push.device.userId).then(
       responseJson => {
         dispatch(setSubscriptions(responseJson))
-        dispatch(stopGetSubscriptions())
-        dispatch(stopAppInit())
+        dispatch(finishGetSubscriptions())
+        dispatch(finishAppInit())
         dispatch(setInitialized())
+        // Init fertig, weiter zum Main-Screen - es sei denn es ist eine Notification offen
+        if (state.push.notification) {
+          Actions.main()
+        }
         return Promise.resolve()
       },
       error => {
         console.log(error)
-        dispatch(stopGetSubscriptions())
+        dispatch(finishGetSubscriptions())
         dispatch(setAppInitError(err))
       }
     )
@@ -229,7 +255,7 @@ function startGetSubscriptions() {
     type: GET_SUBSCRIPTIONS_STARTED
   }
 }
-function stopGetSubscriptions() {
+function finishGetSubscriptions() {
   return {
     type: GET_SUBSCRIPTIONS_FINISHED
   }

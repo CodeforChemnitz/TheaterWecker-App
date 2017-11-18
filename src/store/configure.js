@@ -11,13 +11,17 @@ export default function configureStore() {
     init: {
       error: false,
       progressText: '',
+      initialisingPush: false,
       registeringDevice: false,
       categoriesLoading: false,
       subscriptionsLoading: false,
     },
-    push: {},
+    push: {
+      notification: null,
+    },
     device: {
-
+      notifData: null,
+      verified: null,
     },
     categories: [],
     subscriptions: [],

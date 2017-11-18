@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import OneSignal from 'react-native-onesignal'
 import { connect } from 'react-redux'
 import {
-  doNotificationReceive, doNotificationOpen, doSetDevice, setDeviceRegistered,
+  doNotificationReceive, doNotificationOpen, doSetDevice,
+  setDeviceRegistered, startPushInit,
 } from '../store/actions'
 
 class OneSignalHandler extends Component {
 
   componentWillMount() {
+    this.props.setPushInitStarted()
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('registered', this.onRegistered);
@@ -57,6 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setPushInitStarted: () => dispatch(startPushInit()),
     doSetDevice: device => dispatch(doSetDevice(device)),
     setDeviceRegistered: notifData => dispatch(setDeviceRegistered(notifData)),
     notificationOpened: notification => dispatch(notificationOpened(notification)),

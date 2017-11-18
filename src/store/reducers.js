@@ -15,11 +15,16 @@ export default function (state:array = [], action:object): State {
     case SET_UNINITIALIZED:
       return {...state, initialized: false}
     case APP_INIT_STARTED:
-      return {...state, init: {...state.init, error: false, progressText: 'App wird initialisiert..'}}
+      return {...state, init: {...state.init, error: false, progressText: 'Gleich gehts los..', skipButton: false, spinner:true}}
     case APP_INIT_FINISHED:
       return {...state, init: {...state.init, progressText: 'Initialisierung abgeschlossen.'}}
     case SET_APP_INIT_ERROR:
-      return {...state, init: {...state.init, error: true, progressText: 'Fehler: ' + action.error}}
+      return {...state, init: {...state.init, error: true, progressText: 'Es ist ein Fehler aufgetreten: ' + action.error}}
+
+    case PUSH_INIT_STARTED:
+      return {...state, init: {...state.init, initialisingPush: true, progressText: 'Initialisiere Push Dienst..'}}
+    case PUSH_INIT_FINISHED:
+      return {...state, init: {...state.init, initialisingPush: false, progressText: 'Push Dienst initalisiert.'}}
 
     case SET_DEVICE_ID:
       return {...state, device: {...state.device, ...action.device}}
