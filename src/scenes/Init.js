@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, Button, ActivityIndicator, AsyncStorage } from 'react-native'
-import { Actions } from 'react-native-router-flux';
+import { View, StyleSheet, Text, Button, ActivityIndicator } from 'react-native'
 import Header from '../components/Header'
-import push from '../lib/push'
-import api from '../lib/api'
 import styles from '../styles'
-import { doAppInit } from '../store/actions'
+import { connect } from 'react-redux'
 
 // AsyncStorage: https://facebook.github.io/react-native/docs/asyncstorage.html
 // ActivityIndicator: https://facebook.github.io/react-native/docs/activityindicator.html
@@ -28,7 +25,6 @@ export default class Init extends Component {
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {

@@ -57,8 +57,7 @@ export default class {
     }
   }
 
-  static getDeviceId() {
-    // TODO wie auf Redux zugreifen?
-    return this.deviceId
-  }
+  // static getDeviceId() {
+  //   return this.deviceId
+  // }
 };

@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Text, Image, Button } from 'react-native'
-import { Actions } from 'react-native-router-flux';
-import ParsedText from 'react-native-parsed-text'
+import { Actions } from 'react-native-router-flux'
 import moment from 'moment'
 import styles from '../styles'
 import Footer from '../components/Footer'
-
-// Parsed Text: https://github.com/taskrabbit/react-native-parsed-text
+import { connect } from 'react-redux'
 
 export default class EventNotification extends Component {
   constructor(props) {
@@ -53,3 +51,22 @@ export default class EventNotification extends Component {
     )
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    back: true, // TODO wann warum back?
+    performance: state.performance,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+const InitSceneReduxed = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InitScene)
+
+export default InitSceneReduxed

@@ -5,7 +5,8 @@ import {
   NOTIFICATION_RECEIVED, NOTIFICATION_OPENED,
   REGISTER_DEVICE_STARTED, REGISTER_DEVICE_FINISHED,
   GET_CATEGORIES_STARTED, GET_CATEGORIES_FINISHED, SET_CATEGORIES,
-  GET_SUBSCRIPTIONS_STARTED, GET_SUBSCRIPTIONS_FINISHED, SET_SUBSCRIPTIONS
+  GET_SUBSCRIPTIONS_STARTED, GET_SUBSCRIPTIONS_FINISHED, SET_SUBSCRIPTIONS,
+  SUBSCRIBE_STARTED, SUBSCRIBE_FINISHED, SET_SUBSCRIBE_ERROR
 } from './actions'
 
 export default function (state:array = [], action:object): State {
@@ -54,7 +55,15 @@ export default function (state:array = [], action:object): State {
     case GET_SUBSCRIPTIONS_FINISHED:
       return {...state, init: {...state.init, subscriptionsLoading: false, progressText: 'Subscriptions aktualisiert.'}}
     case SET_SUBSCRIPTIONS:
-      return {...state, subscriptions: action.subscriptions}
+      return {...state, subscriptions: action.subscriptions, subscribeCommited: action.commited }
+
+    case SET_PERFORMANCE:
+      return {...state, performance: action.performance}
+
+    case SUBSCRIBE_STARTED:
+      return {...state, subscribeCommited: false}
+    case SUBSCRIBE_FINISHED:
+      return {...state, subscribeCommited: action.commited}
 
     default:
       return state

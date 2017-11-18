@@ -31,6 +31,12 @@ export const GET_SUBSCRIPTIONS_STARTED = 'Init/GET_SUBSCRIPTIONS_STARTED'
 export const GET_SUBSCRIPTIONS_FINISHED = 'Init/GET_SUBSCRIPTIONS_FINISHED'
 export const SET_SUBSCRIPTIONS = 'Init/SET_SUBSCRIPTIONS'
 
+export const SET_PERFORMANCE = 'Push/SET_PERFORMANCE'
+
+export const SUBSCRIBE_STARTED = 'Main/SUBSCRIBE_STARTED'
+export const SUBSCRIBE_FINISHED = 'Main/SUBSCRIBE_FINISHED'
+export const SET_SUBSCRIBE_ERROR = 'Main/SET_SUBSCRIBE_ERROR'
+
 /*
  * AJAX Seiteneffekte via redux-thunk -> https://github.com/gaearon/redux-thunk
  */
@@ -43,20 +49,6 @@ export function startPushInit() {
 function finishPushInit() {
   return {
     type: PUSH_INIT_FINISHED,
-  }
-}
-
-export function notificationReceived(notification) {
-  return {
-    type: NOTIFICATION_RECEIVED,
-    notification
-  }
-}
-
-export function notificationOpened(notification) {
-  return {
-    type: NOTIFICATION_OPENED,
-    notification
   }
 }
 
@@ -231,7 +223,7 @@ export function doGetSubscriptions() {
     // dispatch(setAppInitProgressText('Hole Subscriptions..'))
     return api.getSubscriptions(state.push.device.userId).then(
       responseJson => {
-        dispatch(setSubscriptions(responseJson))
+        dispatch(setSubscriptions(responseJson, true))
         dispatch(finishGetSubscriptions())
         dispatch(finishAppInit())
         dispatch(setInitialized())
@@ -260,9 +252,101 @@ function finishGetSubscriptions() {
     type: GET_SUBSCRIPTIONS_FINISHED
   }
 }
-function setSubscriptions(subscriptions) {
+function setSubscriptions(subscriptions, commited:boolean) {
   return {
     type: SET_SUBSCRIPTIONS,
-    subscriptions
+    subscriptions,
+    commited
+  }
+}
+
+export function doNotificationReceive(notification) {
+  // console.log('init doNotificationReceive')
+  return function(dispatch, getState) {
+    // console.log('call doNotificationReceive')
+    dispatch(notificationReceived(notification))
+    dispatch(doNotificationOpen(notification, false))
+  }
+}
+function notificationReceived(notification) {
+  return {
+    type: NOTIFICATION_RECEIVED,
+    notification
+  }
+}
+
+export function doNotificationOpen(notification) {
+  // console.log('init doNotificationReceive')
+  return function(dispatch, getState) {
+    // console.log('call doNotificationReceive')
+    dispatch(notificationOpened(notification))
+    const additionalData = notification.payload.additionalData
+
+    // Geräte-Verifizierungs-Notification?
+    if (Object.hasOwnProperty.call(additionalData, 'verification')) {
+      let verification = additionalData.verification
+      api.verifyDevice(verification).then(
+        () => {
+          Actions.main()
+        },
+        error => {
+          dispatch(setAppInitError(error))
+        }
+      )
+    } else if (Object.hasOwnProperty.call(additionalData, 'performance')) {
+      dispatch(setPerformance(additionalData.performance))
+      // TODO per Redux
+      Actions.eventNotification({
+        // performance: additionalData.performance,
+        // back: true
+      })
+    }
+  }
+}
+function notificationOpened(notification) {
+  return {
+    type: NOTIFICATION_OPENED,
+    notification
+  }
+}
+function setPerformance(performance) {
+  return {
+    type: SET_PERFORMANCE,
+    performance
+  }
+}
+
+export function doSubscribe() {
+  // console.log('init doSubscribe')
+  return function(dispatch, getState) {
+    // console.log('call doSubscribe')
+    const state = getState()
+    api.subscribe(state.subscriptions).then(
+      () => {
+        dispatch(finishSubscribe(true))
+        Actions.success({text: 'Wir werden dich bei der nächsten Gelegenheit benachrichtigen.'})
+      }).catch((error) => {
+        // console.error("onSubscribe", error)
+        dispatch(setSubscribeError(error))
+        dispatch(finishSubscribe(false))
+        Actions.error()
+      })
+  }
+}
+function startSubscribe() {
+  return {
+    type: SUBSCRIBE_STARTED
+  }
+}
+function finishSubscribe(commited:boolean) {
+  return {
+    type: SUBSCRIBE_FINISHED,
+    commited
+  }
+}
+function setSubscribeError(error: string) {
+  return {
+    type: SET_SUBSCRIBE_ERROR,
+    error,
   }
 }

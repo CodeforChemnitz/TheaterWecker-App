@@ -25,6 +25,7 @@ export default function configureStore() {
     },
     categories: [],
     subscriptions: [],
+    performance: {},
   }
   const enhancer = compose(
     applyMiddleware(thunk),

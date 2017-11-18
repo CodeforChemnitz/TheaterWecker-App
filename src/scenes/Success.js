@@ -4,8 +4,6 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import styles from '../styles'
 import Footer from '../components/Footer'
 
-// Parsed Text: https://github.com/taskrabbit/react-native-parsed-text
-
 export default class Success extends Component {
   constructor(props) {
     super(props)

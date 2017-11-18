@@ -62,8 +62,8 @@ const mapDispatchToProps = dispatch => {
     setPushInitStarted: () => dispatch(startPushInit()),
     doSetDevice: device => dispatch(doSetDevice(device)),
     setDeviceRegistered: notifData => dispatch(setDeviceRegistered(notifData)),
-    notificationOpened: notification => dispatch(notificationOpened(notification)),
-    notificationReceived: notification => dispatch(notificationReceived(notification)),
+    doNotificationOpen: notification => dispatch(doNotificationOpen(notification)),
+    doNotificationReceive: notification => dispatch(doNotificationReceive(notification)),
   }
 }
 
