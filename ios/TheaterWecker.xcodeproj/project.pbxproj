@@ -1327,7 +1327,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/**",
 				);
 				INFOPLIST_FILE = TheaterWecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1337,7 +1337,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.codeforchemnitz.theaterwecker-";
+				PRODUCT_BUNDLE_IDENTIFIER = de.codeforchemnitz.theaterwecker;
 				PRODUCT_NAME = TheaterWecker;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1353,7 +1353,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
+					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/**",
 				);
 				INFOPLIST_FILE = TheaterWecker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1363,7 +1363,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.codeforchemnitz.theaterwecker-";
+				PRODUCT_BUNDLE_IDENTIFIER = de.codeforchemnitz.theaterwecker;
 				PRODUCT_NAME = TheaterWecker;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

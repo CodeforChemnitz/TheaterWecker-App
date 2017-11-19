@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 // import { persistStore } from 'redux-persist'
 import reducer from './reducers'
 import devTools from 'remote-redux-devtools'
@@ -29,6 +30,7 @@ export default function configureStore() {
   }
   const enhancer = compose(
     applyMiddleware(thunk),
+    applyMiddleware(logger),
     // is disabled on production -> https://github.com/zalmoxisus/remote-redux-devtools#enabling
     devTools({
       name: Platform.OS,

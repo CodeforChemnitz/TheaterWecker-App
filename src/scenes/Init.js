@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 // AsyncStorage: https://facebook.github.io/react-native/docs/asyncstorage.html
 // ActivityIndicator: https://facebook.github.io/react-native/docs/activityindicator.html
 
-export default class Init extends Component {
+class Init extends Component {
   render() {
     return (
         <View style={[styles.body, {flex: 1, flexDirection: 'column'}]}>
@@ -38,9 +38,9 @@ const mapDispatchToProps = dispatch => {
   return {}
 }
 
-const InitSceneReduxed = connect(
+const InitReduxed = connect(
   mapStateToProps,
   mapDispatchToProps
-)(InitScene)
+)(Init)
 
-export default InitSceneReduxed
+export default InitReduxed

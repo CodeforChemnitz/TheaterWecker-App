@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import settings from '../settings'
+import settings from '../settings.js'
 
 // Network fetch: https://facebook.github.io/react-native/releases/next/docs/network.html
 

@@ -9,7 +9,7 @@ import { setSubscriptions, doSubscribe } from '../store/actions'
 
 // Button: https://facebook.github.io/react-native/docs/button.html
 
-export default class Form extends Component {
+class Form extends Component {
   
   // constructor(props) {
   //   super(props)
@@ -83,9 +83,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const InitSceneReduxed = connect(
+const FormReduxed = connect(
   mapStateToProps,
   mapDispatchToProps
-)(InitScene)
+)(Form)
 
-export default InitSceneReduxed
+export default FormReduxed

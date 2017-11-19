@@ -25,7 +25,7 @@ export default class AppRouter extends Component {
         <Scene key="root" hideNavBar={true}>
           <Scene key="init" component={Init} initial={true} type={ActionConst.REPLACE} />
           <Scene key="main" component={Main} type={ActionConst.REPLACE} />
-          <Scene key="error" component={Fehler} title="Fehler" />
+          <Scene key="error" component={Error} title="Fehler" />
           <Scene key="success" component={Success} title="Success" />
           <Scene key="mustVerify" component={MustVerify}  type={ActionConst.REPLACE} />
           <Scene key="eventNotification" component={EventNotification} type={ActionConst.REPLACE} />

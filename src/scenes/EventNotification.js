@@ -6,7 +6,7 @@ import styles from '../styles'
 import Footer from '../components/Footer'
 import { connect } from 'react-redux'
 
-export default class EventNotification extends Component {
+class EventNotification extends Component {
   constructor(props) {
     super(props)
   }
@@ -64,9 +64,9 @@ const mapDispatchToProps = dispatch => {
   return {}
 }
 
-const InitSceneReduxed = connect(
+const EventNotificationReduxed = connect(
   mapStateToProps,
   mapDispatchToProps
-)(InitScene)
+)(EventNotification)
 
-export default InitSceneReduxed
+export default EventNotificationReduxed

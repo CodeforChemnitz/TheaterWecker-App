@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { ScrollView, View, Text, Image } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 import styles from '../styles'
 
 // because of error "The resource could not be loaded because the App Transport Security policy requires the use of a secure connection"
