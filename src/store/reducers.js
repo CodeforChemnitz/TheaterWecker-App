@@ -61,9 +61,11 @@ export default function (state:array = [], action:object): State {
       return {...state, performance: action.performance}
 
     case SUBSCRIBE_STARTED:
-      return {...state, subscribeCommited: false}
+      return {...state, subscribeCommited: false, subscribeError: ''}
     case SUBSCRIBE_FINISHED:
       return {...state, subscribeCommited: action.commited}
+    case SET_SUBSCRIBE_ERROR:
+      return {...state, subscribeError: action.error}
 
     default:
       return state

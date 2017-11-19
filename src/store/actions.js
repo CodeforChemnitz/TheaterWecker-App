@@ -328,7 +328,7 @@ export function doSubscribe() {
         // console.error("onSubscribe", error)
         dispatch(setSubscribeError(error))
         dispatch(finishSubscribe(false))
-        Actions.error()
+        Actions.error({text: error, back: true})
       })
   }
 }
