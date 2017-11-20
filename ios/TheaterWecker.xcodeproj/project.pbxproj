@@ -50,6 +50,7 @@
 		BC0144ECECF84F139C6C2BB2 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 887251469FAA4F6AAF080DEC /* FontAwesome.ttf */; };
 		C6C38F1B91AE4021B51C2396 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7476D2BE04D84BB18308E078 /* Feather.ttf */; };
 		E232C6D7614A457AA38E52C6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10CA9377C13E4E1C968FD4E3 /* Ionicons.ttf */; };
+		E3316C861FC3783B00897E6A /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E3316C851FC3783A00897E6A /* app-icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,6 +366,7 @@
 		AAF66F5489F4456A90509136 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B833B606C6A348A3B8BBAD81 /* libRCTOneSignal.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOneSignal.a; sourceTree = "<group>"; };
+		E3316C851FC3783A00897E6A /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app-icon.png"; path = "../images/app-icon.png"; sourceTree = "<group>"; };
 		E3EF93761FBF3B5F008A98E9 /* TheaterWecker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TheaterWecker.entitlements; path = TheaterWecker/TheaterWecker.entitlements; sourceTree = "<group>"; };
 		E85E21F0D4EC466BA09A8641 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		F6601A0865294FEDAF71F5F5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 		1292AF2FD1D541309FA0C0F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E3316C851FC3783A00897E6A /* app-icon.png */,
 				3A1CE6F999B8413C8C955828 /* Entypo.ttf */,
 				5BCF0BB562534669A675C6F5 /* EvilIcons.ttf */,
 				7476D2BE04D84BB18308E078 /* Feather.ttf */,
@@ -1144,6 +1147,7 @@
 				7AAED3375BE041DB9C3B8F59 /* MaterialIcons.ttf in Resources */,
 				50DD533A3E00450686454FE8 /* Octicons.ttf in Resources */,
 				4C6129721E3C40DCB360629C /* SimpleLineIcons.ttf in Resources */,
+				E3316C861FC3783B00897E6A /* app-icon.png in Resources */,
 				67761D55339C4C3F9D76D3A1 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
