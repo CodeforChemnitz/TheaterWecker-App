@@ -14,6 +14,11 @@ class OneSignalHandler extends Component {
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('registered', this.onRegistered);
     OneSignal.addEventListener('ids', this.onIds);
+
+    OneSignal.getPermissionSubscriptionState((status) => {
+      // console.log("Permission Subscription State: ", status);
+      this.props.doSetDevice(status)
+    });
   }
 
   componentWillUnmount() {
@@ -24,20 +29,20 @@ class OneSignalHandler extends Component {
   }
 
   onReceived(notification) {
-    console.log("Notification received: ", notification);
+    // console.log("Notification received: ", notification);
     this.props.doNotificationReceive(notification)
   }
 
   onOpened(openResult) {
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
+    // console.log('Message: ', openResult.notification.payload.body);
+    // console.log('Data: ', openResult.notification.payload.additionalData);
+    // console.log('isActive: ', openResult.notification.isAppInFocus);
+    // console.log('openResult: ', openResult);
     this.props.doNotificationOpen(openResult.notification)
   }
 
   onRegistered(notifData) {
-    console.log("Device had been registered for push notifications!", notifData);
+    // console.log("Device had been registered for push notifications!", notifData);
     this.props.setDeviceRegistered(notifData)
   }
 
@@ -45,7 +50,6 @@ class OneSignalHandler extends Component {
     console.log('Device info: ', device);
     console.log('UserId ', device.userId)
     console.log('PushToken: ', device.pushToken)
-    this.props.doSetDevice(device)
   }
 
   render() {

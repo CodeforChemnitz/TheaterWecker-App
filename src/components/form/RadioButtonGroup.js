@@ -6,7 +6,7 @@ import styles from '../../styles'
 export default class RadioButtonGroup extends Component {
 
   constructor(props) {
-    console.log("RadioButtonGroup props", props)
+    // console.log("RadioButtonGroup props", props)
     super(props)
     this.state = {
       active: this.props.value

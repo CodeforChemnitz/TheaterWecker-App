@@ -122,7 +122,9 @@ export function doRegisterDevice() {
     dispatch(startAppInit())
     dispatch(startRegisterDevice())
     //dispatch(setAppInitProgressText('Registriere Gerät..'))
-    return api.checkDevice(state.push.device.userId).then(
+    // console.log("device", state.device)
+    const pushUserId = state.device.userId
+    return api.checkDevice(pushUserId).then(
       responseJsonOrFalse => {
         if (responseJsonOrFalse === false) {
           // Gerät neu registriert
@@ -142,9 +144,9 @@ export function doRegisterDevice() {
         return Promise.resolve()
       },
       error => {
-        console.log(error)
+        // console.log(error)
         dispatch(finishRegisterDevice())
-        dispatch(setAppInitError(err))
+        dispatch(setAppInitError(error))
       }
     )
   }
@@ -185,9 +187,9 @@ export function doGetCategories() {
         return Promise.resolve()
       },
       error => {
-        console.log(error)
+        // console.log(error)
         dispatch(finishGetCategories())
-        dispatch(setAppInitError(err))
+        dispatch(setAppInitError(error))
       }
     )
   }
@@ -220,7 +222,9 @@ export function doGetSubscriptions() {
     }
     dispatch(startGetSubscriptions())
     // dispatch(setAppInitProgressText('Hole Subscriptions..'))
-    return api.getSubscriptions(state.push.device.userId).then(
+    // console.log("push", state.device)
+    const pushUserId = state.device.userId
+    return api.getSubscriptions(pushUserId).then(
       responseJson => {
         dispatch(setSubscriptions(responseJson, true))
         dispatch(finishGetSubscriptions())
@@ -233,9 +237,9 @@ export function doGetSubscriptions() {
         return Promise.resolve()
       },
       error => {
-        console.log(error)
+        // console.log(error)
         dispatch(finishGetSubscriptions())
-        dispatch(setAppInitError(err))
+        dispatch(setAppInitError(error))
       }
     )
   }

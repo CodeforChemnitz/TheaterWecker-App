@@ -46,7 +46,7 @@ const api = {
   checkDevice(uuid) {
     return post('device', uuid) // Promise
       .then((response) => { 
-        console.log("registerDevice response:", response)
+        // console.log("registerDevice response:", response)
         if (!response) {
           return Promise.reject('registerDevice fehlgeschlagen')
         }
@@ -72,7 +72,7 @@ const api = {
   verifyDevice(key) {
     return get('verify/' + key)
       .then((response) => {
-        console.log("verifyDevice response", response)
+        // console.log("verifyDevice response", response)
         if (response.status == 200) {
           return Promise.resolve(true)
         } else {
@@ -99,7 +99,7 @@ const api = {
           categories
       }))
       .then((response) => {
-        console.log("subscribe response", response)
+        // console.log("subscribe response", response)
         if (response.status === 201) {
           return Promise.resolve(true)
         } else {
@@ -121,20 +121,20 @@ const api = {
 
 
 function get(route) {
-  console.log("GET " + url + '/' + route)
+  // console.log("GET " + url + '/' + route)
   return fetch(url + '/' + route)
 }
 
 function getJson(route) {
   return get(route)
     .then((response) => { 
-      console.log("getJson",route,"response",response)
+      // console.log("getJson",route,"response",response)
       return response.json()
     })
 }
 
 function post(route, body) {
-  console.log("POST " + url + '/' + route, body)
+  // console.log("POST " + url + '/' + route, body)
   return fetch(url + '/' + route, {
       method: 'POST',
       headers: {

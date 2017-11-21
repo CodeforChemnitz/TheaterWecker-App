@@ -9,7 +9,7 @@ export default class Error extends Component {
     super(props)
   }
   render() {
-    console.log("error", this.props)
+    // console.log("error", this.props)
     let styleImg = {width: 50, height: 50, backgroundColor: 'transparent'}
     return (
         <ScrollView style={styles.body}>
