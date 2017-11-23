@@ -257,7 +257,7 @@ function finishGetSubscriptions() {
     type: GET_SUBSCRIPTIONS_FINISHED
   }
 }
-function setSubscriptions(subscriptions, commited:boolean) {
+export function setSubscriptions(subscriptions, commited:boolean) {
   return {
     type: SET_SUBSCRIPTIONS,
     subscriptions,
@@ -326,6 +326,7 @@ export function doSubscribe() {
   return function(dispatch, getState) {
     // console.log('call doSubscribe')
     const state = getState()
+    dispatch(startSubscribe())
     api.subscribe(state.subscriptions).then(
       () => {
         dispatch(finishSubscribe(true))
