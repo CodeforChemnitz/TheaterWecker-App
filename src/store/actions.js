@@ -110,7 +110,7 @@ function setUninitialized() {
 }
 
 
-export function doRegisterDevice() {
+function doRegisterDevice() {
   // console.log('init doRegisterDevice')
   return function(dispatch, getState) {
     // console.log('call doRegisterDevice')
@@ -169,7 +169,7 @@ function setDeviceVerified(verified:boolean) {
   }
 }
 
-export function doGetCategories() {
+function doGetCategories() {
   // console.log('init doGetCategories')
   return function(dispatch, getState) {
     // console.log('call doGetCategories')
@@ -212,7 +212,7 @@ function setCategories(categories) {
   }
 }
 
-export function doGetSubscriptions() {
+function doGetSubscriptions() {
   // console.log('init doGetSubscriptions')
   return function(dispatch, getState) {
     // console.log('call doGetSubscriptions')
@@ -232,6 +232,8 @@ export function doGetSubscriptions() {
         dispatch(setInitialized())
         // Init fertig, weiter zum Main-Screen - es sei denn es ist eine Notification offen
         if (state.push.notification) {
+          Actions.eventNotification()
+        } else {
           Actions.main()
         }
         return Promise.resolve()
