@@ -99,7 +99,7 @@ const api = {
           categories
       }))
       .then((response) => {
-        // console.log("subscribe response", response)
+        console.log("subscribe response", response)
         if (response.status === 201) {
           return Promise.resolve(true)
         } else {
