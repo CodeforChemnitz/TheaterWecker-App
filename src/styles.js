@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native'
 
 export default StyleSheet.create({
     body: {
