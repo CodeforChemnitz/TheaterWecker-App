@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.theaterwecker",
+    package = "de.codeforchemnitz.theaterwecker",
 )
 
 android_resource(
     name = "res",
-    package = "com.theaterwecker",
+    package = "de.codeforchemnitz.theaterwecker",
     res = "src/main/res",
 )
 
