@@ -54,9 +54,6 @@ class Form extends Component {
                   value={this.props.categoryIdsSelected}
                   onChange={categoryIdsSelected => this.props.setCategoriesSelected(categoryIdsSelected)} />
             </View>
-            <View style={styles.p}>
-                <Text style={[styles.formText, styles.center]}>via Push-Benachrichtigung</Text>
-            </View>
             <View style={styles.buttonGroup}>
                 <Button 
                     title="Abonnieren" 

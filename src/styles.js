@@ -100,33 +100,38 @@ export default StyleSheet.create({
 
     radioButtonGroup: {
         flex: 1,
-        flexDirection: 'column', 
+        flexDirection: 'row', 
         // justifyContent: 'space-between',
-        // flexWrap: 'wrap'
+        flexWrap: 'wrap'
     },
     radioButtonGroupItem: {
         flex: 1,
-        // flexGrow: 1,
+        flexGrow: 1,
         margin: 5,
+        width: 120,
+        height: 120,
         // lineHeight: 25,
         // borderWidth: 1,
         // borderColor: 'lightgray',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#ffdca6',
         padding: 10,
         paddingLeft: 15,
         paddingRight: 15,
         // height: 30,
+        justifyContent: 'space-around',
+        borderRadius: 3,
     },
     radioButtonGroupItemActive: {
-        backgroundColor: '#FF717F'
+        backgroundColor: '#FFA500',
     },
 
     radioButtonGroupItemText: {
-        color: 'black',
-        textAlign: 'center'
+        fontSize: 20,
+        color: '#c98200',
+        textAlign: 'center',
     },
     radioButtonGroupItemTextActive: {
-        // color: 'white'
+        color: 'white'
     },
 
     initContainer: {

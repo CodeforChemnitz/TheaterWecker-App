@@ -27,17 +27,12 @@ export default class Main extends Component {
             <Header/>
             <View style={styles.card}>
                 <View style={styles.p}>
-                    <Text style={[styles.baseText, styles.center]}>
-                        <Text>Wusstest du, dass du als Chemnitzer Student mit deinem </Text>
-                        <Text style={styles.bold}>Studentenausweis</Text> 
-                        <Text> 15 Minuten vor Beginn einer Theatervorstellung </Text>
-                        <Text style={styles.bold}>kostenlos</Text>
-                        <Text> rein kommst, wenn noch Tickets vorhanden sind? </Text>
-                        <Text style={styles.cite}>*</Text>
+                    <Text style={[styles.baseText, {paddingLeft: 10, paddingRight: 10}]}>
+                        Wusstest du, dass du als Chemnitzer Student mit deinem <Text style={styles.bold}>Studentenausweis</Text> 15 Minuten vor Beginn einer Theatervorstellung <Text style={styles.bold}>kostenlos</Text> rein kommst, wenn noch Tickets vorhanden sind? <Text style={styles.cite}>*</Text>
                     </Text>
                 </View>
                 <View style={styles.p}>
-                    <Text style={styles.center}>Lass dich einfach von uns benachrichtigen, wenn kurz vor der Veranstaltung noch Tickets frei sind.</Text>
+                <Text style={[styles.baseText, {paddingLeft: 10, paddingRight: 10}]}>Lass dich einfach von uns benachrichtigen, wenn kurz vor der Veranstaltung noch Tickets frei sind.</Text>
                 </View>
             </View>
 
