@@ -21,16 +21,18 @@ export default class RadioButtonGroup extends Component {
 
   uncheck(id) {
     const index = this.state.active.indexOf(id)
-    this.setState({active: [
+    const active = [
       ...this.state.active.slice(0, index),
       ...this.state.active.slice(index + 1)
-    ]})
-    this.props.onChange(this.state.active)
+    ]
+    this.setState({active})
+    this.props.onChange(active)
   }
 
   check(id) {
-    this.setState({active: [ ...this.state.active, id ]})
-    this.props.onChange(this.state.active)
+    const active = [ ...this.state.active, id ]
+    this.setState({active})
+    this.props.onChange(active)
   }
 
   render() {

@@ -327,7 +327,7 @@ export function doSubscribe() {
     // console.log('call doSubscribe')
     const state = getState()
     dispatch(startSubscribe())
-    api.subscribe(state.subscriptions).then(
+    api.subscribe(state.device.userId, state.subscriptions).then(
       () => {
         dispatch(finishSubscribe(true))
         Actions.success({text: 'Wir werden dich bei der nächsten Gelegenheit benachrichtigen.'})
